@@ -26,7 +26,7 @@ const FaqsPage: NextPage<Props> = ({ faqsData }) => {
       </Head>
       <BodySingle title="Preguntas frecuentes">
         {faqsData?.length
-          ? faqsData?.map((data) => <Faqs data={data} />)
+          ? faqsData?.map((data) => <Faqs key={data.id} data={data} />)
           : null}
       </BodySingle>
     </>

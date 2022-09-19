@@ -7,7 +7,6 @@ import {
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { FC } from "react";
 import { FaqsType } from "./faqsData";
-
 interface Props {
   data: FaqsType;
 }
