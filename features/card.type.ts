@@ -4,6 +4,7 @@ type Images = {
 }
 
 export type Comic = {
+    comic: any
     id: number,
     digitalId: number,
     title: string,
@@ -26,6 +27,9 @@ export type Comic = {
     collections: [],
     collectedIssues: [],
     dates: [],
+    prices: [
+        {price: number,}
+    ],
     thumbnail: {
         path: string,
         extension: string,

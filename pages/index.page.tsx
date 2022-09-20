@@ -1,13 +1,13 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { Comic } from "dh-marvel/features/card.type";
 import { GridCard } from "dh-marvel/components/Card/gridCard";
-import { CircularProgress, Pagination, Stack } from "@mui/material";
+import { Pagination, Stack } from "@mui/material";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import { useEffect, useState } from "react";
 
-export async function getStaticProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   const response = await getComics(0, 12);
   return {
     props: {
@@ -25,24 +25,27 @@ type props = {
 const Index: NextPage<props> = ({ comics, total }) => {
   const [pageComic, setPageComic] = useState<Comic[]>(comics);
   const [page, setPage] = useState(1);
-  // const [loading, setLoading] = useState(false);
+  const limit = 12 
 
-  const getComicsApi = async (offset: number) => {
+  const getComicsApi = async () => {
+    const offset = limit*(page-1)
     const params = new URLSearchParams();
     params.set("offset", `${offset}`);
     params.set("limit", `${12}`);
 
-    const response = await fetch("/api/comic?" + params.toString());
+    const response = await fetch("/api/comics?" + params.toString());
     const data = await response.json();
-    // console.log(loading);
-    // !data ? setLoading(true) : setLoading(false);
     setPageComic(data.comics.results);
   };
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     setPage(value);
-    getComicsApi(value * 12 - 12);
+
   };
+
+  useEffect(()=>{
+    getComicsApi()
+  }, [page])
 
   return (
     <>

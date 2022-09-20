@@ -17,8 +17,12 @@ export const GridCard: FC<props> = ({ comics }) => {
         columns={{ xs: 4, sm: 8, md: 12 }}
       >
         {comics.map((comic, index) => (
-          <Grid2 xs={12} sm={4} md={4} key={index} >
-            <CardComic title={comic.title} image={comic.thumbnail.path + "." + comic.thumbnail.extension} />
+          <Grid2 xs={12} sm={4} md={4} key={index}>
+            <CardComic
+              title={comic.title}
+              image={comic.thumbnail.path + "." + comic.thumbnail.extension}
+              id={comic.id}
+            />
           </Grid2>
         ))}
       </Grid2>

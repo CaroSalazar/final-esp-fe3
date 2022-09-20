@@ -12,8 +12,18 @@ import Link from "next/link";
 type propsComic = {
   title: string;
   image: string;
+  id: number;
 };
-export const CardComic: FC<propsComic> = ({ title, image }) => {
+export const CardComic: FC<propsComic> = ({ title, image, id }) => {
+  const handleClick = () => {
+    getComicId();
+  };
+
+  const getComicId = async () => {
+    const response = await fetch("/api/comics/" + id);
+    const data = await response.json();
+  };
+
   return (
     <Card sx={{ maxWidth: 350 }}>
       <CardMedia
@@ -30,8 +40,10 @@ export const CardComic: FC<propsComic> = ({ title, image }) => {
       </CardContent>
       <CardActions>
         <Button size="small">Comprar</Button>
-        <Link href="comics">
-          <Button size="small">Ver Detalle</Button>
+        <Link href={`/comics/${id}`}>
+          <Button onClick={handleClick} size="small">
+            Ver Detalle
+          </Button>
         </Link>
       </CardActions>
     </Card>
