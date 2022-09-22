@@ -22,12 +22,10 @@ export const CardDescription: FC<comicIDProps> = ({
   available,
   id
 }) => {
-  console.log(id);
-  
   return (
     <>
-    <div key={id}>
-      <Accordion>
+    <div >
+      <Accordion key={id}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"

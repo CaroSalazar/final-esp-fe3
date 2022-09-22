@@ -1,36 +1,35 @@
 import { FC } from "react";
 import Card from "@mui/material/Card";
-import {
-  CardContent,
-  CardMedia,
-  Stack,
-  Typography,
-} from "@mui/material";
-import { toNamespacedPath } from "node:path/win32";
+import { CardContent, CardMedia, Stack, Typography } from "@mui/material";
 
 type propsCharacter = {
-  name: string;
+  title: string;
   image: string;
   id: number;
   description: string;
 };
-export const CardCharacter: FC<propsCharacter> = ({ name, image, description, id }) => {
+export const CardCharacter: FC<propsCharacter> = ({
+  title,
+  image,
+  description,
+  id,
+}) => {
   return (
-    <Card sx={{ maxWidth: 380 }} key={id}>
+    <Card sx={{ maxWidth: 380, textAlign:'center'}}>
       <Stack spacing={2} alignItems="center">
         <CardMedia
           component="img"
           sx={{ width: 210, objectFit: "contain" }}
           height="200"
           image={image}
-          alt={name}
+          alt={title}
         />
       </Stack>
       <CardContent>
-        <Typography variant="body2" color="text.primary">
-          {name}
+        <Typography variant="subtitle1" color="text.primary">
+          {title}
         </Typography>
-        <Typography variant="body2" color="text.primary">
+        <Typography variant="subtitle2" color="text.primary">
           {description}
         </Typography>
       </CardContent>

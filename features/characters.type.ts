@@ -4,8 +4,9 @@ type Images = {
 };
 
 export type Character = {
+  character:any,
   id: number;
-  name: string;
+  title: string;
   description: string;
   modified: string;
   thumbnail: {

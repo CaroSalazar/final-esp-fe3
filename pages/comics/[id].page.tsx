@@ -6,6 +6,7 @@ import { CardDetalle } from "dh-marvel/components/comicsID/cardDetalle";
 import { CardImage } from "dh-marvel/components/comicsID/cardImage";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import Link from "next/link";
+import { Head } from "next/document";
 
 export async function getServerSideProps(context: { query: { id: any } }) {
   const { id } = context.query;
@@ -58,7 +59,7 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
                 data.comic.characters.available
                   ? data.comic.characters.items.map((item: any) => {
                       return (
-                        <Link href={`/personajes/${data.comic.id}`}>
+                        <Link href={`/characters/${data.comic.id}`}>
                           <Typography>{item.name}</Typography>
                         </Link>
                       );
