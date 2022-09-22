@@ -32,7 +32,7 @@ export const CardDetalle: FC<detalleComicProps> = ({
         </Link>
       ) : (
         <Button size="small" disabled>
-          Comprar
+          Sin stock
         </Button>
       )}
     </CardContent>

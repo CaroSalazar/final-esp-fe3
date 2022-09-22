@@ -7,5 +7,5 @@ type imageComicProps = {
 };
 
 export const CardImage: FC<imageComicProps> = ({ title, image }) => {
-  return <CardMedia component="img" height="300" image={image} alt={title} />;
+  return <CardMedia component="img"  height="194" image={image} alt={title} />;
 };

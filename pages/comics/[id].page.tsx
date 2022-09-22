@@ -1,15 +1,16 @@
 import { Comic } from "dh-marvel/features/card.type";
 import { NextPage } from "next";
-import { Box, Grid } from "@mui/material";
-import { CardDescription } from "dh-marvel/components/ComicsID/cardDescription";
-import { CardDetalle } from "dh-marvel/components/ComicsID/cardDetalle";
-import { CardImage } from "dh-marvel/components/ComicsID/cardImage";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+import { CardDescription } from "dh-marvel/components/comicsID/cardDescription";
+import { CardDetalle } from "dh-marvel/components/comicsID/cardDetalle";
+import { CardImage } from "dh-marvel/components/comicsID/cardImage";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
+import { useEffect } from "react";
 import Link from "next/link";
 
 export async function getServerSideProps(context: { query: { id: any } }) {
   const { id } = context.query;
-  const res = await fetch(`http://localhost:3000/api/comics/${id}`);
+  const res = await fetch(`http:localhost:3000/api/comics/${id}`);
   const data = await res.json();
 
   return { props: { data: data } };
@@ -24,7 +25,8 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
     <>
       <Box>
         <BodySingle title={data.comic.title}>
-          <Grid sx={{ display: "flex", flexDirection: "row" }}>
+         <Stack spacing={2} alignItems="center">
+          <Grid sx={{ display: "flex", flexDirection: "row"}}>
             <Grid>
               <CardImage
                 title={data.comic.title}
@@ -44,6 +46,8 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
               />
             </Grid>
           </Grid>
+          </Stack>
+          <Box>
           <Grid>
             <CardDescription
               description={data.comic.description}
@@ -63,6 +67,8 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
               }
             />
           </Grid>
+          </Box>
+         
         </BodySingle>
       </Box>
     </>
