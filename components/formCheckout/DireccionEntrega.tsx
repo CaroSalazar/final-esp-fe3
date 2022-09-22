@@ -60,13 +60,6 @@ const DireccionEntrega: FC<DireccionEntregaProps> = ({
           <InputText label="Ciudad" name="city" />
           <InputText label="Provincia" name="state" />
           <InputText label="Cod Postal" name="zipCode" />
-
-          <div>
-            Direccion: {address1}
-            Departamento: {address2}
-            Estado: {state}
-            CodigoPostal: {zipCode}
-          </div>
         </FormProvider>
       </form>
 

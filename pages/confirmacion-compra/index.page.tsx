@@ -3,7 +3,7 @@ import { NextPage } from "next";
 
 const OrdenConfirmada:NextPage = () =>{
     return(
-        <div>que disfrutes tu compra</div>
+        <div>Que disfrutes tu compra</div>
     )
 }
 
