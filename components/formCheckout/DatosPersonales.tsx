@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import StepperNavigation from "./StepperNavigation";
@@ -32,13 +32,8 @@ const DatosPersonales: FC<DatosPersonalesProps> = ({
   const lastname = watch("lastname");
 
   const onSubmit = (data: DatosPersonalesForm) => {
-    console.log(data);
     handleNext();
   };
-
-  useEffect(() => {
-    setFocus("name");
-  }, []);
 
   return (
     <Stack>

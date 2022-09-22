@@ -57,10 +57,10 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
               available={data.comic.characters.available}
               characters={
                 data.comic.characters.available
-                  ? data.comic.characters.items.map((item: any) => {
+                  ? data.comic.characters.items.map((item: any, index:any) => {
                       return (
                         <Link href={`/characters/${data.comic.id}`}>
-                          <Typography>{item.name}</Typography>
+                          <Typography key={index}>{item.name}</Typography>
                         </Link>
                       );
                     })

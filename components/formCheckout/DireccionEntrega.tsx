@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Stack } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import InputText from "./InputText";
 import {
@@ -47,9 +47,7 @@ const DireccionEntrega: FC<DireccionEntregaProps> = ({
   const submitBack = () =>{
     handleBack();
   }
-  useEffect(() => {
-    setFocus("address1");
-  }, []);
+
 
   return (
     <Stack>

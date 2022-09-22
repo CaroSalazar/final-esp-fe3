@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Stack } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import React, { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import InputText from "./InputText";
 import { DatosPagoForm, ValidationSchemaData } from "./DatosPago.types";
@@ -36,9 +36,7 @@ const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext, handleBack }) =
     console.log(data);
     handleNext();
   };
-  useEffect(() => {
-    setFocus("nameOnCard");
-  }, []);
+
   return (
     <Stack>
       <form>
