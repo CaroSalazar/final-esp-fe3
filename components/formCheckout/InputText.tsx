@@ -5,8 +5,9 @@ import { useController, useFormContext } from "react-hook-form";
 interface Props {
   name: string;
   label: string;
+  defaultValue?: string;
 }
-const InputText: FC<Props> = ({name, label }) => {
+const InputText: FC<Props> = ({name, label, defaultValue}) => {
   const {control} = useFormContext();
 
   const {
@@ -15,19 +16,20 @@ const InputText: FC<Props> = ({name, label }) => {
   } = useController<Record<string, string>>({
       name: name,
       control,  
+      defaultValue
   });
 
   return (
     <div>
       <Box mb={2}>
         <TextField
-          onChange={onChange}
-          value={value}
-          label={label}
-          inputRef={ref}
-          fullWidth
-          error={!!errors[name]}
-          helperText={`${errors[name]?.message || ""}`}
+         onChange={onChange}
+         value={value}
+         label={label} 
+         inputRef={ref}
+         fullWidth 
+         error={!!errors[name]}
+         helperText={`${errors[name]?.message || ''}`}
         />
       </Box>
     </div>

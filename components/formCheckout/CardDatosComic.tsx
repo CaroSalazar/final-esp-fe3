@@ -12,7 +12,7 @@ const CardDatosComic:FC<Data> = ({image, title, price}) => {
       <Stack>
         <CardMedia
           component="img"
-          // sx={{ width: 210, objectFit: "contain" }}
+          sx={{ width: 200, objectFit: "contain" }}
           height="200"
           image={image}
           alt={'title'}
