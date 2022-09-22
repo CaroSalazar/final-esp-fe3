@@ -44,7 +44,7 @@ export const CardDescription: FC<comicIDProps> = ({
         </AccordionDetails>
       </Accordion>
       {available ? (
-        <Accordion>
+        <Accordion key={id}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -53,7 +53,7 @@ export const CardDescription: FC<comicIDProps> = ({
             <Typography>Personajes</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ backgroundColor: "whitesmoke" }}>
-            <Typography key={id}>{characters}</Typography>
+            <Typography>{characters}</Typography>
           </AccordionDetails>
         </Accordion>
       ) : null}

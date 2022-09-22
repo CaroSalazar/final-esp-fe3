@@ -11,12 +11,15 @@ import StepperNavigation from "./StepperNavigation";
 
 export type DireccionEntregaProps = {
   activeStep: number;
+  handleBack: () => void;
   handleNext: () => void;
 };
 
 const DireccionEntrega: FC<DireccionEntregaProps> = ({
   activeStep,
   handleNext,
+  handleBack
+
 }) => {
   const methods = useForm<DireccionEntregaForm>({
     resolver: yupResolver(ValidationSchemaAdressDirection),
@@ -35,10 +38,15 @@ const DireccionEntrega: FC<DireccionEntregaProps> = ({
   const state = watch("state");
   const zipCode = watch("zipCode");
 
+  
   const onSubmit = (data: DireccionEntregaForm) => {
     console.log(data);
     handleNext();
   };
+
+  const submitBack = () =>{
+    handleBack();
+  }
   useEffect(() => {
     setFocus("address1");
   }, []);
@@ -64,8 +72,8 @@ const DireccionEntrega: FC<DireccionEntregaProps> = ({
 
       <StepperNavigation
         activeStep={activeStep}
-        onPrevClick={() => console.log("do nothing")}
         onNextClick={handleSubmit(onSubmit)}
+        handleBack={handleSubmit(submitBack)}
       />
     </Stack>
   );

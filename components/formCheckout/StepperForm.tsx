@@ -10,6 +10,9 @@ import DireccionEntrega from "./DireccionEntrega";
 const StepperForm: FC = () => {
     const [activeStep, setActiveStep] = useState<number>(0);
 
+    const handleClickBack = () =>{
+        setActiveStep(activeStep-1);
+    }
     const handleSubmitRegisterForm = () => {
         setActiveStep(1);
     }
@@ -43,12 +46,11 @@ const StepperForm: FC = () => {
                 <DatosPersonales activeStep={activeStep} handleNext={handleSubmitRegisterForm}/>
             }
             {activeStep === 1 &&
-                <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitCreditCardForm}/>
+                <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitCreditCardForm} handleBack={handleClickBack}/>
             }
               {activeStep === 2 &&
-               <DatosPago activeStep={activeStep} handleNext={handleSubmit}/>
+               <DatosPago activeStep={activeStep} handleNext={handleSubmit} handleBack={handleClickBack}/>
              }
-
         </Box>
     </>
 }

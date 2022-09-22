@@ -8,10 +8,11 @@ import StepperNavigation from "./StepperNavigation";
 
 export type DatosPagoProps = {
   activeStep: number;
+  handleBack: () => void;
   handleNext: () => void;
 };
 
-const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext }) => {
+const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext, handleBack }) => {
   const methods = useForm<DatosPagoForm>({
     resolver: yupResolver(ValidationSchemaData),
     defaultValues: {
@@ -28,6 +29,9 @@ const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext }) => {
   const expDate = watch("expDate");
   const cvc = watch("cvc");
 
+  const submitBack = () =>{
+    handleBack();
+  }
   const onSubmit = (data: DatosPagoForm) => {
     console.log(data);
     handleNext();
@@ -43,19 +47,12 @@ const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext }) => {
           <InputText label="Numero de Tarjeta" name="number" />
           <InputText label="exp MM/YY" name="expDate" />
           <InputText label="CVV" name="cvc" />
-
-          <div>
-            nameOnCard: {nameOnCard}
-            number: {number}
-            expDate: {expDate}
-            cvc: {cvc}
-          </div>
         </FormProvider>
       </form>
 
       <StepperNavigation
         activeStep={activeStep}
-        onPrevClick={() => console.log("do nothing")}
+        handleBack={handleSubmit(submitBack)}
         onNextClick={handleSubmit(onSubmit)}
       />
     </Stack>

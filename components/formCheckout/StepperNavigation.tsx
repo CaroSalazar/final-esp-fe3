@@ -3,16 +3,16 @@ import { FC } from "react";
 
 export type StepperNavigationProps = {
     activeStep: number,
-    onPrevClick: () => void,
+    handleBack: () => void,
     onNextClick: () => void,
 }
 
 const StepperNavigation:FC<StepperNavigationProps> = 
-    ({activeStep, onPrevClick, onNextClick}: StepperNavigationProps) => {
+    ({activeStep, handleBack, onNextClick}: StepperNavigationProps) => {
     
     return <Stack direction="row" mt={2}>
     {activeStep !== 0 &&
-        <Button onClick={onPrevClick}>
+        <Button onClick={handleBack}>
             Anterior
         </Button>
     }

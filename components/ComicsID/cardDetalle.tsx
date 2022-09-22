@@ -15,13 +15,11 @@ export const CardDetalle: FC<detalleComicProps> = ({
   price,
   oldPrice,
   stock,
-  image
 }) => {
 
   const handleClick = () =>{
     localStorage.setItem("title", title)
     localStorage.setItem("price", String(price))
-    // localStorage.setItem("image", String(image))
     router.push({
       pathname:'/checkout'
     })

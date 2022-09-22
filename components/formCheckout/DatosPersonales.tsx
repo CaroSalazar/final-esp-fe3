@@ -21,9 +21,9 @@ const DatosPersonales: FC<DatosPersonalesProps> = ({
   const methods = useForm<DatosPersonalesForm>({
     resolver: yupResolver(ValidationSchemaPersonaldata),
     defaultValues: {
-      name: "",
-      lastname: "",
-      email: "",
+      name: "Test",
+      lastname: "User",
+      email: "test@user.com",
     },
   });
   const { watch, setFocus, handleSubmit } = methods;
@@ -45,20 +45,13 @@ const DatosPersonales: FC<DatosPersonalesProps> = ({
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormProvider {...methods}>
           <InputText name="name" label="Name" />
+          <InputText name="lastname" label="LastName" />
           <InputText name="email" label="Email" />
-
-          <InputText name="lastname" label="Last Name" />
-
-          <div>
-            Email: {email}
-            Name: {name}
-            Lastname: {lastname}
-          </div>
         </FormProvider>
       </form>
       <StepperNavigation
         activeStep={activeStep}
-        onPrevClick={() => console.log("do nothing")}
+        handleBack={() => console.log("do nothing")}
         onNextClick={handleSubmit(onSubmit)}
       />
     </Stack>

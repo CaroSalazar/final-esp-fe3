@@ -58,7 +58,7 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
                 data.comic.characters.available
                   ? data.comic.characters.items.map((item: any) => {
                       return (
-                        <Link href={"/personajes"}>
+                        <Link href={`/personajes/${data.comic.id}`}>
                           <Typography>{item.name}</Typography>
                         </Link>
                       );
