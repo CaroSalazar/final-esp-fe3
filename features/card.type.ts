@@ -4,7 +4,7 @@ type Images = {
 }
 
 export type Comic = {
-    comic: any
+    comic:any,
     id: number,
     digitalId: number,
     title: string,

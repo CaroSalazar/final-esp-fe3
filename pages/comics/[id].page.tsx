@@ -5,7 +5,6 @@ import { CardDescription } from "dh-marvel/components/comicsID/cardDescription";
 import { CardDetalle } from "dh-marvel/components/comicsID/cardDetalle";
 import { CardImage } from "dh-marvel/components/comicsID/cardImage";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import { useEffect } from "react";
 import Link from "next/link";
 
 export async function getServerSideProps(context: { query: { id: any } }) {
@@ -21,6 +20,8 @@ interface comicIDProps {
 }
 
 const ComicId: NextPage<comicIDProps> = ({ data }) => {
+  localStorage.setItem('pathImage', data.comic.thumbnail.path);
+  localStorage.setItem('extensionImage', data.comic.thumbnail.extension);
   return (
     <>
       <Box>
@@ -50,6 +51,7 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
           <Box>
           <Grid>
             <CardDescription
+            id={data.comic.id}
               description={data.comic.description}
               available={data.comic.characters.available}
               characters={
@@ -57,9 +59,7 @@ const ComicId: NextPage<comicIDProps> = ({ data }) => {
                   ? data.comic.characters.items.map((item: any) => {
                       return (
                         <Link href={"/personajes"}>
-                          <ul>
-                            <li>{item.name}</li>
-                          </ul>
+                          <Typography>{item.name}</Typography>
                         </Link>
                       );
                     })

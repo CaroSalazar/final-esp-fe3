@@ -10,6 +10,7 @@ import { FC } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 type comicIDProps = {
+  id: number,
   description: string;
   characters: string[] | string;
   available: number;
@@ -19,9 +20,13 @@ export const CardDescription: FC<comicIDProps> = ({
   description,
   characters,
   available,
+  id
 }) => {
+  console.log(id);
+  
   return (
     <>
+    <div key={id}>
       <Accordion>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
@@ -30,7 +35,7 @@ export const CardDescription: FC<comicIDProps> = ({
         >
           <Typography>Descripción</Typography>
         </AccordionSummary>
-        <AccordionDetails sx={{ backgroundColor: "whitesmoke" }}>
+        <AccordionDetails key={id} sx={{ backgroundColor: "whitesmoke" }}>
           {description ? (
             <Typography>{description}</Typography>
           ) : (
@@ -48,10 +53,11 @@ export const CardDescription: FC<comicIDProps> = ({
             <Typography>Personajes</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ backgroundColor: "whitesmoke" }}>
-            <Typography>{characters}</Typography>
+            <Typography key={id}>{characters}</Typography>
           </AccordionDetails>
         </Accordion>
       ) : null}
+      </div>
     </>
   );
 };

@@ -1,5 +1,5 @@
 import { Button, CardContent, Typography } from "@mui/material";
-import Link from "next/link";
+import router from "next/router";
 import { FC } from "react";
 
 type detalleComicProps = {
@@ -7,6 +7,7 @@ type detalleComicProps = {
   price: number;
   oldPrice: number;
   stock: number;
+  image?: string;
 };
 
 export const CardDetalle: FC<detalleComicProps> = ({
@@ -14,7 +15,17 @@ export const CardDetalle: FC<detalleComicProps> = ({
   price,
   oldPrice,
   stock,
+  image
 }) => {
+
+  const handleClick = () =>{
+    localStorage.setItem("title", title)
+    localStorage.setItem("price", String(price))
+    // localStorage.setItem("image", String(image))
+    router.push({
+      pathname:'/checkout'
+    })
+  }
   return (
     <CardContent>
       <Typography variant="h5" component="div">
@@ -27,9 +38,7 @@ export const CardDetalle: FC<detalleComicProps> = ({
         ${price}
       </Typography>
       {stock ? (
-        <Link href="/checkout">
-          <Button size="small">Comprar</Button>
-        </Link>
+          <Button size="small" onClick={handleClick}>Comprar</Button>
       ) : (
         <Button size="small" disabled>
           Sin stock
