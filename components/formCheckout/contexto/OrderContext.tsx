@@ -1,0 +1,104 @@
+import { createContext, FC, useReducer, useMemo, Dispatch } from "react";
+import { PropsWithChildren } from "react";
+import { DatosPagoForm } from "../DatosPago.types";
+import { DatosPersonalesForm } from "../DatosPersonales.types";
+import { DireccionEntregaForm } from "../DireccionEntrega.types";
+
+export type Order = {
+  customer: DatosPersonalesForm & DireccionEntregaForm;
+  card: DatosPagoForm;
+};
+
+export interface OrderState {
+  order: Order;
+}
+
+export interface OrderContextState {
+  state: { order: Order };
+  dispatch: Dispatch<OrderActionType>;
+}
+
+export const OrderContext =
+  createContext<OrderContextState | undefined>(undefined);
+
+type OrderSetCustomerType = {
+  type: "SET_CUSTOMER";
+  payload: DatosPersonalesForm;
+};
+
+type OrderSetCardType = {
+  type: "SET_CARD";
+  payload: DatosPagoForm;
+};
+
+type OrderSetStringType = {
+  type: "SET_CUSTOMER_AND_ADVANCE";
+  payload: {
+    activeStep: number;
+    customer: {};
+  };
+};
+
+type OrderSetAddressType = {
+  type: "SET_ADDRESS";
+  payload: DireccionEntregaForm;
+};
+
+type OrderActionType =
+  | OrderSetCustomerType
+  | OrderSetCardType
+  | OrderSetAddressType
+  | OrderSetStringType;
+
+const reducer = (state: OrderState, action: OrderActionType) => {
+  switch (action.type) {
+    case "SET_CUSTOMER":
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          customer: action.payload,
+        },
+      };
+    case "SET_CARD":
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          card: action.payload,
+        },
+      };
+    case "SET_ADDRESS":
+      return {
+        ...state,
+        order: {
+          ...state.order,
+          customer: { ...state.order.customer, address: action.payload },
+        },
+      };
+    default:
+      return state;
+  }
+};
+
+const initialState: OrderState = {
+  order: {
+    customer: {} as DatosPersonalesForm & DireccionEntregaForm,
+    card: {} as DatosPagoForm,
+  },
+};
+
+export const OrderProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [state, dispatch] = useReducer<any>(reducer, initialState);
+
+  const value = useMemo<any>(
+    () => ({
+      state,
+      dispatch,
+    }),
+    [state, dispatch]
+  );
+  return (
+    <OrderContext.Provider value={value}>{children}</OrderContext.Provider>
+  );
+};

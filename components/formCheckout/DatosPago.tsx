@@ -1,10 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Stack } from "@mui/material";
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import InputText from "./InputText";
 import { DatosPagoForm, ValidationSchemaData } from "./DatosPago.types";
 import StepperNavigation from "./StepperNavigation";
+import useOrder from "./contexto/useOrder";
+import { checkoutPost } from "dh-marvel/services/checkout/checkout.service";
+import { validCard } from "dh-marvel/pages/api/checkout.route";
 
 export type DatosPagoProps = {
   activeStep: number;
@@ -12,30 +15,40 @@ export type DatosPagoProps = {
   handleNext: () => void;
 };
 
-const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleNext, handleBack }) => {
+const DatosPago: FC<DatosPagoProps> = ({
+  activeStep,
+  handleNext,
+  handleBack,
+}) => {
+  const { dispatch, state } = useOrder();
+
   const methods = useForm<DatosPagoForm>({
     resolver: yupResolver(ValidationSchemaData),
     defaultValues: {
-      nameOnCard: "Test",
-      number: "42424242 4242 4242",
-      expDate: "test@user.com",
-      cvc: "gregg",
+      nameOnCard: "Visa",
+      number: validCard,
+      expDate: "25/07",
+      cvc: "789",
     },
   });
 
-  const { watch, setFocus, handleSubmit } = methods;
-  const nameOnCard = watch("nameOnCard");
-  const number = watch("number");
-  const expDate = watch("expDate");
-  const cvc = watch("cvc");
+  const { setFocus, handleSubmit } = methods;
 
-  const submitBack = () =>{
+  const submitBack = () => {
     handleBack();
-  }
+  };
   const onSubmit = (data: DatosPagoForm) => {
-    console.log(data);
+    dispatch({
+      type: "SET_CARD",
+      payload: data,
+    });
+    checkoutPost({ ...state.order, card: data });
     handleNext();
   };
+
+  useEffect(() => {
+    setFocus("nameOnCard");
+  }, []);
 
   return (
     <Stack>

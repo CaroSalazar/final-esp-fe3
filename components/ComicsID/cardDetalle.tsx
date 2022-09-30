@@ -16,14 +16,11 @@ export const CardDetalle: FC<detalleComicProps> = ({
   oldPrice,
   stock,
 }) => {
-
-  const handleClick = () =>{
-    localStorage.setItem("title", title)
-    localStorage.setItem("price", String(price))
+  const handleClick = () => {
     router.push({
-      pathname:'/checkout'
-    })
-  }
+      pathname: "/checkout",
+    });
+  };
   return (
     <CardContent>
       <Typography variant="h5" component="div">
@@ -36,7 +33,9 @@ export const CardDetalle: FC<detalleComicProps> = ({
         ${price}
       </Typography>
       {stock ? (
-          <Button size="small" onClick={handleClick}>Comprar</Button>
+        <Button size="small" onClick={handleClick}>
+          Comprar
+        </Button>
       ) : (
         <Button size="small" disabled>
           Sin stock

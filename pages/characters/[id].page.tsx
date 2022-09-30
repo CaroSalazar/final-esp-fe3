@@ -2,29 +2,34 @@ import { NextPage } from "next";
 import { Character } from "dh-marvel/features/characters.type";
 import { CardCharacter } from "dh-marvel/components/characterCard/Card";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
+import Grid2 from "@mui/material/Unstable_Grid2";
+import { Stack } from "@mui/material";
+import { getCharacter } from "dh-marvel/services/marvel/marvel.service";
 
-export async function getServerSideProps(context: { query: { id: any } }) {
-    const { id } = context.query;
-    const res = await fetch(`http:localhost:3000/api/characters/${id}`);
-    const data = await res.json();
-  console.log(data);
-  
-    return { props: { data: data } };
+export async function getServerSideProps(req: { query: { id: any } }) {
+    const { id } = req.query;
+    const character = await getCharacter(id);
+    return { props: { character: character } };
   }
-interface Props {
-  data: Character;
+  
+export interface Props {
+  character: Character;
+  id: number;
 }
 
-const Characters: NextPage<Props> = ({ data }) => {
+const Characters: NextPage<Props> = ({ character }) => {
   return (
     <>
-      <BodySingle title={data.character.title}>
+      <BodySingle title={character.name}>
+      <Stack spacing={2} alignItems="center">
+        <Grid2>
         <CardCharacter
-          id={data.character.id}
-          title={data.character.title}
-          image={data.character.thumbnail.path + "." + data.character.thumbnail.extension}
-          description={data.character.description}
+          name={character.name}
+          image={character.thumbnail.path + "." + character.thumbnail.extension}
+          description={character.description}
         />
+        </Grid2>
+        </Stack>
       </BodySingle>
     </>
   );

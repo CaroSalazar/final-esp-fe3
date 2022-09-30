@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import StepperNavigation from "./StepperNavigation";
@@ -8,6 +8,7 @@ import {
   ValidationSchemaPersonaldata,
 } from "./DatosPersonales.types";
 import InputText from "./InputText";
+import useOrder from "./contexto/useOrder";
 
 export type DatosPersonalesProps = {
   activeStep: number;
@@ -18,22 +19,30 @@ const DatosPersonales: FC<DatosPersonalesProps> = ({
   activeStep,
   handleNext,
 }) => {
+  const { dispatch } = useOrder();
+
   const methods = useForm<DatosPersonalesForm>({
     resolver: yupResolver(ValidationSchemaPersonaldata),
     defaultValues: {
-      name: "Test",
-      lastname: "User",
-      email: "test@user.com",
+      name: "Carolina",
+      lastname: "Salazar",
+      email: "Caro@user.com",
     },
   });
-  const { watch, setFocus, handleSubmit } = methods;
-  const email = watch("email");
-  const name = watch("name");
-  const lastname = watch("lastname");
+  const { setFocus, handleSubmit } = methods;
 
   const onSubmit = (data: DatosPersonalesForm) => {
+    dispatch({
+      type: "SET_CUSTOMER",
+      payload: data,
+    });
+
     handleNext();
   };
+
+  useEffect(() => {
+    setFocus("name");
+  }, []);
 
   return (
     <Stack>

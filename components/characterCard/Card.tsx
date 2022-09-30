@@ -3,16 +3,14 @@ import Card from "@mui/material/Card";
 import { CardContent, CardMedia, Stack, Typography } from "@mui/material";
 
 type propsCharacter = {
-  title: string;
+  name: string;
   image: string;
-  id: number;
   description: string;
 };
 export const CardCharacter: FC<propsCharacter> = ({
-  title,
+  name,
   image,
   description,
-  id,
 }) => {
   return (
     <Card sx={{ maxWidth: 380, textAlign:'center'}}>
@@ -22,12 +20,12 @@ export const CardCharacter: FC<propsCharacter> = ({
           sx={{ width: 210, objectFit: "contain" }}
           height="200"
           image={image}
-          alt={title}
+          alt={name}
         />
       </Stack>
       <CardContent>
-        <Typography variant="subtitle1" color="text.primary">
-          {title}
+        <Typography  variant="subtitle1" color="text.primary">
+          {name}
         </Typography>
         <Typography variant="subtitle2" color="text.primary">
           {description}

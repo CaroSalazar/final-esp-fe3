@@ -1,11 +1,12 @@
 import {Box, Step, StepLabel, Stepper} from "@mui/material";
+import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
+import { checkoutPost } from "dh-marvel/services/checkout/checkout.service";
 import router from "next/router";
 import {FC, useState} from "react";
 import DatosPago from "./DatosPago";
 import DatosPersonales from "./DatosPersonales";
 import DireccionEntrega from "./DireccionEntrega";
-// import RegisterForm from "dh/components/forms/RegisterForm";
-// import CreditCardForm from "./forms/CreditCardForm";
+
 
 const StepperForm: FC = () => {
     const [activeStep, setActiveStep] = useState<number>(0);
@@ -13,13 +14,14 @@ const StepperForm: FC = () => {
     const handleClickBack = () =>{
         setActiveStep(activeStep-1);
     }
-    const handleSubmitRegisterForm = () => {
+    const handleSubmitDatosPersonales = () => {
         setActiveStep(1);
     }
 
-    const handleSubmitCreditCardForm = () => {
+    const handleSubmitDireccionEntrega = () => {
         setActiveStep(2);
     }
+
     const handleSubmit = () => {
         router.push({
             pathname:'/confirmacion-compra'
@@ -43,10 +45,10 @@ const StepperForm: FC = () => {
             </Stepper>
 
             {activeStep === 0 && 
-                <DatosPersonales activeStep={activeStep} handleNext={handleSubmitRegisterForm}/>
+                <DatosPersonales activeStep={activeStep} handleNext={handleSubmitDatosPersonales}/>
             }
             {activeStep === 1 &&
-                <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitCreditCardForm} handleBack={handleClickBack}/>
+                <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitDireccionEntrega} handleBack={handleClickBack}/>
             }
               {activeStep === 2 &&
                <DatosPago activeStep={activeStep} handleNext={handleSubmit} handleBack={handleClickBack}/>

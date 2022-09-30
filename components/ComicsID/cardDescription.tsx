@@ -2,30 +2,32 @@ import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
-  Button,
-  CardContent,
   Typography,
 } from "@mui/material";
 import { FC } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Link from "next/link";
 
 type comicIDProps = {
-  id: number,
   description: string;
-  characters: string[] | string;
+  characters: any;
   available: number;
+  id: number;
 };
 
 export const CardDescription: FC<comicIDProps> = ({
   description,
   characters,
   available,
-  id
 }) => {
+  const traerId = (url: string) => {
+    const splitUrl = url.split("/");
+    return splitUrl[splitUrl.length - 1];
+  };
+
   return (
     <>
-    <div >
-      <Accordion key={id}>
+      <Accordion sx={{ width: "50%", flexShrink: 0 }}>
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1a-content"
@@ -33,7 +35,7 @@ export const CardDescription: FC<comicIDProps> = ({
         >
           <Typography>Descripción</Typography>
         </AccordionSummary>
-        <AccordionDetails key={id} sx={{ backgroundColor: "whitesmoke" }}>
+        <AccordionDetails sx={{ backgroundColor: "whitesmoke" }}>
           {description ? (
             <Typography>{description}</Typography>
           ) : (
@@ -42,7 +44,7 @@ export const CardDescription: FC<comicIDProps> = ({
         </AccordionDetails>
       </Accordion>
       {available ? (
-        <Accordion key={id}>
+        <Accordion sx={{ width: "50%", flexShrink: 0 }}>
           <AccordionSummary
             expandIcon={<ExpandMoreIcon />}
             aria-controls="panel1a-content"
@@ -51,11 +53,16 @@ export const CardDescription: FC<comicIDProps> = ({
             <Typography>Personajes</Typography>
           </AccordionSummary>
           <AccordionDetails sx={{ backgroundColor: "whitesmoke" }}>
-            <Typography>{characters}</Typography>
+            {characters.map((item: any, index:any) => {
+              return (
+                <Link key={index} href={`/characters/${traerId(item.resourceURI)}`}>
+                  {item.name}
+                </Link>
+              );
+            })}
           </AccordionDetails>
         </Accordion>
       ) : null}
-      </div>
     </>
   );
 };

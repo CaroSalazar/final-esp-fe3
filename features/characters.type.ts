@@ -6,7 +6,7 @@ type Images = {
 export type Character = {
   character:any,
   id: number;
-  title: string;
+  name: string;
   description: string;
   modified: string;
   thumbnail: {

@@ -15,7 +15,7 @@ const CardDatosComic:FC<Data> = ({image, title, price}) => {
           sx={{ width: 200, objectFit: "contain" }}
           height="200"
           image={image}
-          alt={'title'}
+          alt={title}
         />
       </Stack>
       <CardContent>
