@@ -3,8 +3,9 @@ import StepperForm from "dh-marvel/components/formCheckout/StepperForm";
 import CardDatosComic from "dh-marvel/components/formCheckout/CardDatosComic";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { NextPage } from "next";
+import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
-const Check: NextPage = () => {
+const CheckoutPage: NextPage = () => {
 
   let title = localStorage.getItem("title");
   let price = localStorage.getItem("price");
@@ -26,5 +27,7 @@ const Check: NextPage = () => {
       </Box>
     </BodySingle>
   );
-};
-export default Check;
+}
+(CheckoutPage as any).Layout = LayoutCheckout;
+
+export default CheckoutPage;

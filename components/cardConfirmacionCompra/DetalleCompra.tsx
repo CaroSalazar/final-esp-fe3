@@ -15,13 +15,15 @@ export const DetalleCompra: FC<Props> = ({
   email,
   address1,
   city,
-  state,
+  state
+
 }) => {
   return (
     <Box>
       <Stack spacing={2} flexDirection="row" alignItems="center">
         <Card>
           <CardContent>
+          <h4>Datos Personales</h4>
             <Typography variant="subtitle2" color="text.primary">
               {name} {lastname}
             </Typography>
@@ -32,15 +34,16 @@ export const DetalleCompra: FC<Props> = ({
         </Card>
         <Card>
           <CardContent>
+            <h4>Dirección de entrega</h4>
             <Typography variant="subtitle2" color="text.primary">
               {address1}
             </Typography>
             <Typography variant="body2" color="text.primary">
-              {city} {state}
+              {city} {state} 
             </Typography>
           </CardContent>
         </Card>
       </Stack>
-      </Box>
+    </Box>
   );
 };

@@ -2,13 +2,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Stack } from "@mui/material";
 import React, { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import InputText from "./InputText";
+import InputText from "../InputText";
 import {
   DireccionEntregaForm,
   ValidationSchemaAdressDirection,
 } from "./DireccionEntrega.types";
-import StepperNavigation from "./StepperNavigation";
-import useOrder from "./contexto/useOrder";
+import StepperNavigation from "../StepperNavigation";
+import useOrder from "../contexto/useOrder";
 
 export type DireccionEntregaProps = {
   activeStep: number;
@@ -34,7 +34,7 @@ const DireccionEntrega: FC<DireccionEntregaProps> = ({
     },
   });
 
-  const {  handleSubmit } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit = (data: DireccionEntregaForm) => {
     dispatch({

@@ -7,6 +7,7 @@ import { CardImage } from "dh-marvel/components/comicsID/cardImage";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { getComic } from "dh-marvel/services/marvel/marvel.service";
 import character from "dh-marvel/test/mocks/character";
+import { useEffect } from "react";
 
 export async function getServerSideProps(req: { query: { id: any } }) {
   const { id } = req.query;
@@ -19,6 +20,11 @@ interface comicIDProps {
 }
 
 const ComicId: NextPage<comicIDProps> = ({ data }) => {
+
+  if (!data) {
+    return <></>;
+  }
+  
   localStorage.setItem("title", data.title);
   localStorage.setItem("price", String(data.price));
   localStorage.setItem("pathImage", data.thumbnail.path);

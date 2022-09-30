@@ -1,17 +1,11 @@
 import {Box, Step, StepLabel, Stepper} from "@mui/material";
-import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
-import { checkoutPost } from "dh-marvel/services/checkout/checkout.service";
-import router from "next/router";
 import {FC, useState} from "react";
-import DatosPago from "./DatosPago";
-import DatosPersonales from "./DatosPersonales";
-import DireccionEntrega from "./DireccionEntrega";
-
+import { DatosPago, DatosPersonales, DireccionEntrega } from "./forms";
 
 const StepperForm: FC = () => {
     const [activeStep, setActiveStep] = useState<number>(0);
 
-    const handleClickBack = () =>{
+    const handleClickBack = () => {
         setActiveStep(activeStep-1);
     }
     const handleSubmitDatosPersonales = () => {
@@ -20,12 +14,6 @@ const StepperForm: FC = () => {
 
     const handleSubmitDireccionEntrega = () => {
         setActiveStep(2);
-    }
-
-    const handleSubmit = () => {
-        router.push({
-            pathname:'/confirmacion-compra'
-        })
     }
 
     return <>
@@ -51,7 +39,7 @@ const StepperForm: FC = () => {
                 <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitDireccionEntrega} handleBack={handleClickBack}/>
             }
               {activeStep === 2 &&
-               <DatosPago activeStep={activeStep} handleNext={handleSubmit} handleBack={handleClickBack}/>
+               <DatosPago activeStep={activeStep} handleBack={handleClickBack}/>
              }
         </Box>
     </>

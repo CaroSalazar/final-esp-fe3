@@ -3,6 +3,7 @@ import { Stack } from "@mui/system";
 import { DetalleCompra } from "dh-marvel/components/cardConfirmacionCompra/DetalleCompra";
 import CardDatosComic from "dh-marvel/components/formCheckout/CardDatosComic";
 import useOrder from "dh-marvel/components/formCheckout/contexto/useOrder";
+import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 import { NextPage } from "next";
 
 const OrdenConfirmada: NextPage = () => {
@@ -16,7 +17,7 @@ const OrdenConfirmada: NextPage = () => {
   let image = path + "." + extension;
 
   return (
-    <Box sx={{width:'90%'}}>
+    <Box sx={{ width: "90%" }}>
       <Typography
         sx={{ backgroundColor: "green", width: "100%", textAlign: "center" }}
         variant="body1"
@@ -41,8 +42,8 @@ const OrdenConfirmada: NextPage = () => {
           state={data.customer.address.state}
         />
       </Stack>
-      </Box>
+    </Box>
   );
 };
-
+(OrdenConfirmada as any).Layout = LayoutCheckout;
 export default OrdenConfirmada;

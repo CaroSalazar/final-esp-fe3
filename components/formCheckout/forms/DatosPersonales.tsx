@@ -2,13 +2,13 @@ import { Stack } from "@mui/material";
 import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import StepperNavigation from "./StepperNavigation";
+import StepperNavigation from "../StepperNavigation";
 import {
   DatosPersonalesForm,
   ValidationSchemaPersonaldata,
 } from "./DatosPersonales.types";
-import InputText from "./InputText";
-import useOrder from "./contexto/useOrder";
+import InputText from "../InputText";
+import useOrder from "../contexto/useOrder";
 
 export type DatosPersonalesProps = {
   activeStep: number;

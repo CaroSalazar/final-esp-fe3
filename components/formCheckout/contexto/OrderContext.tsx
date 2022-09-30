@@ -1,8 +1,8 @@
 import { createContext, FC, useReducer, useMemo, Dispatch } from "react";
 import { PropsWithChildren } from "react";
-import { DatosPagoForm } from "../DatosPago.types";
-import { DatosPersonalesForm } from "../DatosPersonales.types";
-import { DireccionEntregaForm } from "../DireccionEntrega.types";
+import { DatosPagoForm } from "../forms/DatosPago.types";
+import { DatosPersonalesForm } from "../forms/DatosPersonales.types";
+import { DireccionEntregaForm } from "../forms/DireccionEntrega.types";
 
 export type Order = {
   customer: DatosPersonalesForm & DireccionEntregaForm;
@@ -31,14 +31,6 @@ type OrderSetCardType = {
   payload: DatosPagoForm;
 };
 
-type OrderSetStringType = {
-  type: "SET_CUSTOMER_AND_ADVANCE";
-  payload: {
-    activeStep: number;
-    customer: {};
-  };
-};
-
 type OrderSetAddressType = {
   type: "SET_ADDRESS";
   payload: DireccionEntregaForm;
@@ -47,8 +39,7 @@ type OrderSetAddressType = {
 type OrderActionType =
   | OrderSetCustomerType
   | OrderSetCardType
-  | OrderSetAddressType
-  | OrderSetStringType;
+  | OrderSetAddressType;
 
 const reducer = (state: OrderState, action: OrderActionType) => {
   switch (action.type) {
@@ -73,7 +64,7 @@ const reducer = (state: OrderState, action: OrderActionType) => {
         ...state,
         order: {
           ...state.order,
-          customer: { ...state.order.customer, address: action.payload },
+          customer:{ ...state.order.customer, address: action.payload},
         },
       };
     default:

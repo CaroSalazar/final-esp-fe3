@@ -1,26 +1,34 @@
 import { yupResolver } from "@hookform/resolvers/yup";
-import { Stack } from "@mui/material";
-import React, { FC, useEffect } from "react";
+import { Alert, Snackbar, Stack } from "@mui/material";
+import React, { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import InputText from "./InputText";
+import InputText from "../InputText";
 import { DatosPagoForm, ValidationSchemaData } from "./DatosPago.types";
-import StepperNavigation from "./StepperNavigation";
-import useOrder from "./contexto/useOrder";
+import StepperNavigation from "../StepperNavigation";
+import useOrder from "../contexto/useOrder";
 import { checkoutPost } from "dh-marvel/services/checkout/checkout.service";
 import { validCard } from "dh-marvel/pages/api/checkout.route";
+import router from "next/router";
 
 export type DatosPagoProps = {
   activeStep: number;
   handleBack: () => void;
-  handleNext: () => void;
+  // handleNext: () => void;
 };
 
 const DatosPago: FC<DatosPagoProps> = ({
   activeStep,
-  handleNext,
+  // handleNext,
   handleBack,
 }) => {
   const { dispatch, state } = useOrder();
+
+  const [open, setOpen] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const handleClose = (event: React.SyntheticEvent | Event) => {
+    setOpen(false);
+  };
 
   const methods = useForm<DatosPagoForm>({
     resolver: yupResolver(ValidationSchemaData),
@@ -37,13 +45,32 @@ const DatosPago: FC<DatosPagoProps> = ({
   const submitBack = () => {
     handleBack();
   };
+
+  const postApiCheckout = async (post:any) => {
+    const response = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(post),
+    });
+    const data = await response.json();
+    if (!data.error) {
+      router.push({
+        pathname: "/confirmacion-compra",
+      });
+    } else {
+      setOpen(true);
+      setMessage(data.message);
+    }
+  };
+
   const onSubmit = (data: DatosPagoForm) => {
     dispatch({
       type: "SET_CARD",
       payload: data,
     });
-    checkoutPost({ ...state.order, card: data });
-    handleNext();
+    postApiCheckout({ ...state.order, card: data });
+
+    // handleNext();
   };
 
   useEffect(() => {
@@ -66,6 +93,12 @@ const DatosPago: FC<DatosPagoProps> = ({
         handleBack={handleSubmit(submitBack)}
         onNextClick={handleSubmit(onSubmit)}
       />
+
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
+         {message}
+        </Alert>
+      </Snackbar>
     </Stack>
   );
 };

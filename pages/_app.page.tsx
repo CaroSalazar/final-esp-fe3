@@ -5,14 +5,17 @@ import { theme } from "dh-marvel/styles/material-theme";
 import { OrderProvider } from "dh-marvel/components/formCheckout/contexto/OrderContext";
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  const LayoutComponent = (Component as any).Layout || LayoutGeneral
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <LayoutGeneral>
+      <LayoutComponent>
         <OrderProvider>
           <Component {...pageProps} />
         </OrderProvider>
-      </LayoutGeneral>
+        </LayoutComponent>
       <style jsx global>{`
         /* Other global styles such as 'html, body' etc... */
 
