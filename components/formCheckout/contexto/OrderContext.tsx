@@ -1,10 +1,11 @@
 import { createContext, FC, useReducer, useMemo, Dispatch } from "react";
 import { PropsWithChildren } from "react";
 import { DatosPersonalesForm, DireccionEntregaForm, DatosPagoForm } from "../forms";
+import { DatosPersonalesEntrega } from "../forms/customer.types";
 
 
 export type Order = {
-  customer: DatosPersonalesForm & DireccionEntregaForm;
+  customer: DatosPersonalesEntrega
   card: DatosPagoForm;
 };
 
@@ -73,7 +74,7 @@ const reducer = (state: OrderState, action: OrderActionType) => {
 
 const initialState: OrderState = {
   order: {
-    customer: {} as DatosPersonalesForm & DireccionEntregaForm,
+    customer: {} as DatosPersonalesEntrega,
     card: {} as DatosPagoForm,
   },
 };

@@ -5,7 +5,7 @@ import {
   OrderState,
 } from "../formCheckout/contexto/OrderContext";
 import useOrder from "../formCheckout/contexto/useOrder";
-import { DatosPago } from "../formCheckout/forms";
+import { DireccionEntrega } from "../formCheckout/forms";
 import { StepperNavigationProps } from "../formCheckout/StepperNavigation";
 
 const mockStepperNavigationProps = jest.fn();
@@ -17,7 +17,7 @@ jest.mock("../formCheckout/StepperNavigation", () =>
         StepperNavigation: {props.activeStep}
         <div>
           <button onClick={props.handleBack}>Anterior</button>
-          <button onClick={props.onNextClick}>Comprar</button>
+          <button onClick={props.onNextClick}>Siguiente</button>
         </div>
       </div>
     );
@@ -30,24 +30,27 @@ const mockDispatch = jest.fn();
 mockUseOrder.mockReturnValue({
   state: {
     order: {
-      card: {
-        nameOnCard: "Visa",
-          number: "4242424242424242",
-          expDate: "25/07",
-          cvc: "789",
+      customer: {
+        address: {
+          address1: "Belgrano",
+          state: "BA",
+          city: "Tandil",
+          address2: "2",
+          zipCode: "7000",
+        },
       },
     },
   } as OrderState,
   dispatch: mockDispatch,
 });
 
-describe("DatosPagoForm", () => {
+describe("DireccionEntregaForm", () => {
   describe("when rendering submitting form", () => {
     it("should hit the dispatch", async () => {
       const mockHandleNext = jest.fn();
       render(
         <OrderProvider>
-          <DatosPago
+          <DireccionEntrega
             activeStep={0}
             handleNext={mockHandleNext}
             handleBack={function (): void {
@@ -57,25 +60,26 @@ describe("DatosPagoForm", () => {
         </OrderProvider>
       );
 
-      userEvent.type(screen.getByRole("textbox", { name: "CVV" }), "345");
       userEvent.type(
-        screen.getByRole("textbox", { name: "exp MM/YY" }),
-        "11/23"
+        screen.getByRole("textbox", { name: "Direccion" }),
+        "Belgrano 1234"
       );
+      userEvent.type(screen.getByRole("textbox", { name: "Ciudad" }), "Tandil");
 
-      userEvent.click(screen.getByRole("button", { name: "Comprar" }));
+      userEvent.click(screen.getByRole("button", { name: "Siguiente" }));
 
       await waitFor(() => {
         expect(mockHandleNext).toBeCalled();
       });
       expect(mockDispatch).toBeCalledWith({
         payload: {
-          nameOnCard: "Visa",
-          number: "4242424242424242",
-          expDate: "25/07",
-          cvc: "789",
+          address1: "Belgrano",
+          state: "BA",
+          city: "Tandil",
+          address2: "2",
+          zipCode: "7000",
         },
-        type: "SET_CARD",
+        type: "SET_ADDRESS",
       });
     });
   });
