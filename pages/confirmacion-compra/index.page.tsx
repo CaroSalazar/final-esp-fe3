@@ -4,11 +4,13 @@ import { DetalleCompra } from "dh-marvel/components/cardConfirmacionCompra/Detal
 import CardDatosComic from "dh-marvel/components/formCheckout/CardDatosComic";
 import useOrder from "dh-marvel/components/formCheckout/contexto/useOrder";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
+import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
 import { NextPage } from "next";
 
 const OrdenConfirmada: NextPage = () => {
   const { state } = useOrder();
   const data = state.order;
+
 
   let title = localStorage.getItem("title");
   let price = localStorage.getItem("price");

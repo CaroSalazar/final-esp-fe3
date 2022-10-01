@@ -16,6 +16,9 @@ const StepperForm: FC = () => {
         setActiveStep(2);
     }
 
+    const handleSubmitDatosPago = () => {
+        // setActiveStep(3);
+    }
     return <>
         <Box sx={{width: '60%'}}>
             <Stepper
@@ -39,7 +42,7 @@ const StepperForm: FC = () => {
                 <DireccionEntrega activeStep={activeStep} handleNext={handleSubmitDireccionEntrega} handleBack={handleClickBack}/>
             }
               {activeStep === 2 &&
-               <DatosPago activeStep={activeStep} handleBack={handleClickBack}/>
+               <DatosPago activeStep={activeStep} handleBack={handleClickBack} handleNext={handleSubmitDatosPago}/>
              }
         </Box>
     </>

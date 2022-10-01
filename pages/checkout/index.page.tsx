@@ -4,14 +4,27 @@ import CardDatosComic from "dh-marvel/components/formCheckout/CardDatosComic";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { NextPage } from "next";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
+import { useEffect } from "react";
+import router from "next/router";
 
 const CheckoutPage: NextPage = () => {
+
 
   let title = localStorage.getItem("title");
   let price = localStorage.getItem("price");
   let path = localStorage.getItem("pathImage");
   let extension = localStorage.getItem("extensionImage");
   let image = path + "." + extension;
+
+ if(!title){
+  return <></>
+ }
+
+  useEffect(() =>{
+    if(!title){
+      router.push("./")
+    }
+  },[title])
 
   return (
     <BodySingle title={`Checkout: ${title}`}>

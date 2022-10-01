@@ -6,21 +6,16 @@ import InputText from "../InputText";
 import { DatosPagoForm, ValidationSchemaData } from "./DatosPago.types";
 import StepperNavigation from "../StepperNavigation";
 import useOrder from "../contexto/useOrder";
-import { checkoutPost } from "dh-marvel/services/checkout/checkout.service";
 import { validCard } from "dh-marvel/pages/api/checkout.route";
 import router from "next/router";
 
 export type DatosPagoProps = {
   activeStep: number;
   handleBack: () => void;
-  // handleNext: () => void;
+  handleNext: () => void;
 };
 
-const DatosPago: FC<DatosPagoProps> = ({
-  activeStep,
-  // handleNext,
-  handleBack,
-}) => {
+const DatosPago: FC<DatosPagoProps> = ({ activeStep, handleBack, handleNext }) => {
   const { dispatch, state } = useOrder();
 
   const [open, setOpen] = useState(false);
@@ -46,7 +41,7 @@ const DatosPago: FC<DatosPagoProps> = ({
     handleBack();
   };
 
-  const postApiCheckout = async (post:any) => {
+  const postApiCheckout = async (post: any) => {
     const response = await fetch("/api/checkout", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -69,8 +64,6 @@ const DatosPago: FC<DatosPagoProps> = ({
       payload: data,
     });
     postApiCheckout({ ...state.order, card: data });
-
-    // handleNext();
   };
 
   useEffect(() => {
@@ -96,7 +89,7 @@ const DatosPago: FC<DatosPagoProps> = ({
 
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="error" sx={{ width: "100%" }}>
-         {message}
+          {message}
         </Alert>
       </Snackbar>
     </Stack>

@@ -1,8 +1,7 @@
 import { createContext, FC, useReducer, useMemo, Dispatch } from "react";
 import { PropsWithChildren } from "react";
-import { DatosPagoForm } from "../forms/DatosPago.types";
-import { DatosPersonalesForm } from "../forms/DatosPersonales.types";
-import { DireccionEntregaForm } from "../forms/DireccionEntrega.types";
+import { DatosPersonalesForm, DireccionEntregaForm, DatosPagoForm } from "../forms";
+
 
 export type Order = {
   customer: DatosPersonalesForm & DireccionEntregaForm;
